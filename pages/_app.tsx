@@ -1,12 +1,15 @@
-import '../styles/globals.css';
-import Navbar from '../components/Navbar';
 import type { AppProps } from 'next/app';
+import Navbar from '../components/Navbar';
+import { CurrentUserProvider } from '../hooks/useCurrentUser';
+import '../styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<>
-			<Navbar />
-			<Component {...pageProps} />
+			<CurrentUserProvider>
+				<Navbar />
+				<Component {...pageProps} />
+			</CurrentUserProvider>
 		</>
 	);
 }

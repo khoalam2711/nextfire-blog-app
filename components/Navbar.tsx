@@ -8,9 +8,10 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import MUILink from '@mui/material/Link';
 import { RiUserLine } from 'react-icons/ri';
+import useCurrentUser from '../hooks/useCurrentUser';
 
 const Navbar = () => {
-	const { user, username } = { user: 'Khoa', username: 'Khoa' };
+	const { user, username } = useCurrentUser();
 	return (
 		<AppBar position="sticky">
 			<Toolbar>
@@ -33,6 +34,9 @@ const Navbar = () => {
 				{/* user is signed in and has username */}
 				{username && (
 					<>
+						<Button color="inherit" className="mr-4">
+							Sign Out
+						</Button>
 						<Link href="/admin">
 							<Button color="inherit" className="mr-4">
 								Write Post
@@ -50,8 +54,8 @@ const Navbar = () => {
 
 				{/* user is not signed in OR has not created username */}
 				{!username && (
-					<Link href="/enter">
-						<Button color="inherit">Log in</Button>
+					<Link href="/signin">
+						<Button color="inherit">Sign In</Button>
 					</Link>
 				)}
 			</Toolbar>
