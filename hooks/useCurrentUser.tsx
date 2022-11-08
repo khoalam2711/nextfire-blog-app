@@ -19,11 +19,11 @@ export const CurrentUserContext = createContext<ICurrentUser>({
 	username: null,
 });
 
-interface AuthProviderProps {
+interface CurrentUserProviderProps {
 	children: ReactNode;
 }
 
-export const CurrentUserProvider = ({ children }: AuthProviderProps) => {
+export const CurrentUserProvider = ({ children }: CurrentUserProviderProps) => {
 	const [user] = useAuthState(auth);
 	const [username, setUsername] = useState<string | null>(null);
 
