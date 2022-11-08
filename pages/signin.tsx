@@ -5,6 +5,7 @@ import { auth, googleAuthProvider } from '../firebase';
 import Button from '@mui/material/Button';
 import { FcGoogle } from 'react-icons/fc';
 import useCurrentUser from '../hooks/useCurrentUser';
+import UsernameForm from '../components/UsernameForm';
 
 const SignIn = () => {
 	const { user, username } = useCurrentUser();
@@ -63,7 +64,4 @@ function SignOutButton(): ReactElement {
 	);
 }
 
-function UsernameForm(): ReactElement {
-	return <div>UsernameForm</div>;
-}
 export default SignIn;
