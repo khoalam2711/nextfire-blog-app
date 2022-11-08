@@ -8,7 +8,11 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import MUILink from '@mui/material/Link';
 import { RiUserLine } from 'react-icons/ri';
+import Image from 'next/image';
 import useCurrentUser from '../hooks/useCurrentUser';
+
+const fallbackPhotoURL =
+	'https://www.wycliffe.ca/wp-content/uploads/bb-plugin/cache/member-fallback-user-image-square.png';
 
 const Navbar = () => {
 	const { user, username } = useCurrentUser();
@@ -44,9 +48,7 @@ const Navbar = () => {
 						</Link>
 						<Link href={`/${user}`}>
 							<Avatar className="cursor-pointer">
-								<SvgIcon>
-									<RiUserLine />
-								</SvgIcon>
+								<Image src={user?.photoURL || fallbackPhotoURL} layout="fill" />
 							</Avatar>
 						</Link>
 					</>
