@@ -24,7 +24,7 @@ const Navbar = () => {
 						<MdFireplace size={25} />
 					</SvgIcon>
 				</Link>
-				<Link href="/home" passHref>
+				<Link href="/" passHref>
 					<MUILink
 						className="text-2xl font-semibold"
 						color="inherit"
