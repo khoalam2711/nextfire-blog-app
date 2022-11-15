@@ -1,18 +1,18 @@
-import Link from 'next/link';
 import React from 'react';
-import { MdFireplace } from 'react-icons/md';
+import Link from 'next/link';
+import Image from 'next/image';
+
 import AppBar from '@mui/material/AppBar';
 import SvgIcon from '@mui/material/SvgIcon';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import MUILink from '@mui/material/Link';
-import { RiUserLine } from 'react-icons/ri';
-import Image from 'next/image';
-import useCurrentUser from '../hooks/useCurrentUser';
 
-const fallbackPhotoURL =
-	'https://www.wycliffe.ca/wp-content/uploads/bb-plugin/cache/member-fallback-user-image-square.png';
+import { MdFireplace } from 'react-icons/md';
+
+import useCurrentUser from '../hooks/useCurrentUser';
+import { FALLBACK_PHOTO_URL } from '../utils/constants';
 
 const Navbar = () => {
 	const { user, username } = useCurrentUser();
@@ -46,9 +46,12 @@ const Navbar = () => {
 								Write Post
 							</Button>
 						</Link>
-						<Link href={`/${user}`}>
+						<Link href={`/${username}`}>
 							<Avatar className="cursor-pointer">
-								<Image src={user?.photoURL || fallbackPhotoURL} layout="fill" />
+								<Image
+									src={user?.photoURL || FALLBACK_PHOTO_URL}
+									layout="fill"
+								/>
 							</Avatar>
 						</Link>
 					</>
