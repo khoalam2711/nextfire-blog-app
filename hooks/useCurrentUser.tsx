@@ -11,7 +11,7 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, firestore } from '../firebase';
 interface ICurrentUser {
 	user: User | null | undefined;
-	username: string | null;
+	username: string | null | undefined;
 }
 
 export const CurrentUserContext = createContext<ICurrentUser>({
