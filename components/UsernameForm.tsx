@@ -31,9 +31,9 @@ const UsernameForm = () => {
 	const checkUsername = useCallback(
 		debounce(async (username: string) => {
 			if (username.length >= 3) {
-				const documentRef = doc(firestore, `usernames/${username}`);
-				const documentSnap = await getDoc(documentRef);
-				setIsValid(!documentSnap.exists());
+				const usernameRef = doc(firestore, `usernames/${username}`);
+				const usernameDoc = await getDoc(usernameRef);
+				setIsValid(!usernameDoc.exists());
 				setIsLoading(false);
 			}
 		}, 500),
