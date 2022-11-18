@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 			limit(5)
 		);
 		try {
-			posts = (await getDocs(q)).docs.map(postToJSON);
+			posts = (await getDocs(q)).docs.map((doc) => postToJSON(doc.data()));
 		} catch (error) {
 			console.log(error);
 		}

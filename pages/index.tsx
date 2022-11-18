@@ -32,7 +32,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		limit(LIMIT)
 	);
 
-	const posts = (await getDocs(postsQuery)).docs.map(postToJSON);
+	const posts = (await getDocs(postsQuery)).docs.map((doc) =>
+		postToJSON(doc.data())
+	);
 
 	return {
 		props: {
@@ -78,7 +80,7 @@ export default function Home(props: HomePageProps) {
 		}
 		setIsLoading(false);
 	};
-	
+
 	return (
 		<div className={styles.container}>
 			<Head>

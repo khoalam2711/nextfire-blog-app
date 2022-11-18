@@ -3,7 +3,6 @@ import {
 	DocumentData,
 	getDocs,
 	query,
-	QueryDocumentSnapshot,
 	where,
 } from 'firebase/firestore';
 import { firestore } from '../firebase';
@@ -35,8 +34,7 @@ export async function getUserWithUsername(username: string | string[]) {
  * Converts a firestore document to JSON
  * @param {DocumentSnapshot} doc
  */
-export function postToJSON(doc: QueryDocumentSnapshot<DocumentData>) {
-	const data = doc.data();
+export function postToJSON(data: DocumentData) {
 	return {
 		...data,
 		createdAt: data.createdAt.toMillis(),
