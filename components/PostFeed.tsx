@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React from 'react';
 
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/system/Stack';
 
 import { Post } from '../utils/typings';
@@ -34,10 +33,15 @@ const PostItem = ({ post, admin }: PostItemProps) => {
 	return (
 		<Paper elevation={2} className="p-6 mt-5">
 			<Link href={`/${post.username}`}>
-				<strong>By @{post.username}</strong>
+				<strong>
+					By{' '}
+					<strong className="hover:underline cursor-pointer">
+						@{post.username}
+					</strong>
+				</strong>
 			</Link>
 			<Link href={`/${post.username}/${post.slug}`}>
-				<h2>{post.title}</h2>
+				<h2 className='cursor-pointer'>{post.title}</h2>
 			</Link>
 
 			<footer>

@@ -8,6 +8,7 @@ import {
 } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 import React from 'react';
+import Metatags from '../../components/Metatags';
 import PostFeed from '../../components/PostFeed';
 import UserProfile from '../../components/UserProfile';
 import { getUserWithUsername, postToJSON } from '../../utils/helpers';
@@ -27,20 +28,25 @@ export const getServerSideProps: GetServerSideProps = async ({
 	let user: any;
 	let posts: any;
 
-	if (userDoc?.exists()) {
-		user = userDoc.data();
-		const postsRef = collection(userDoc.ref, '/posts');
-		const q = query(
-			postsRef,
-			where('published', '==', true),
-			orderBy('createdAt', 'desc'),
-			limit(5)
-		);
-		try {
-			posts = (await getDocs(q)).docs.map((doc) => postToJSON(doc.data()));
-		} catch (error) {
-			console.log(error);
-		}
+	if (!userDoc?.exists()) {
+		return {
+			notFound: true,
+		};
+	}
+
+	user = userDoc.data();
+	const postsRef = collection(userDoc.ref, '/posts');
+	const q = query(
+		postsRef,
+		where('published', '==', true),
+		orderBy('createdAt', 'desc'),
+		limit(5)
+	);
+
+	try {
+		posts = (await getDocs(q)).docs.map((doc) => postToJSON(doc.data()));
+	} catch (error) {
+		console.log(error);
 	}
 
 	return {
@@ -55,10 +61,13 @@ interface UserProfilePageProps {
 
 const UserProfilePage = ({ user, posts }: UserProfilePageProps) => {
 	return (
-		<main className="p-12 px-24">
-			<UserProfile user={user} />
-			<PostFeed posts={posts} />
-		</main>
+		<>
+			<Metatags title={user.username} image={user.photoURL} />
+			<main className="p-12 px-24">
+				<UserProfile user={user} />
+				<PostFeed posts={posts} />
+			</main>
+		</>
 	);
 };
 
