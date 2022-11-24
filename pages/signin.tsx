@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { FcGoogle } from 'react-icons/fc';
 import useCurrentUser from '../hooks/useCurrentUser';
 import UsernameForm from '../components/UsernameForm';
+import { useRouter } from 'next/router';
 
 const SignIn = () => {
 	const { user, username } = useCurrentUser();
@@ -25,9 +26,11 @@ const SignIn = () => {
 };
 
 function SignInButton(): ReactElement {
+	const router = useRouter();
 	const signInWithGoogle = async () => {
 		try {
 			await signInWithPopup(auth, googleAuthProvider);
+			router.replace('/');
 		} catch (e) {
 			window.alert(e);
 			console.log(e);

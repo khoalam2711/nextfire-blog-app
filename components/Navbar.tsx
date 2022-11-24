@@ -12,6 +12,8 @@ import { MdFireplace } from 'react-icons/md';
 
 import useCurrentUser from '../hooks/useCurrentUser';
 import { FALLBACK_PHOTO_URL } from '../utils/constants';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const Navbar = () => {
 	const { user, username } = useCurrentUser();
@@ -24,15 +26,17 @@ const Navbar = () => {
 					</SvgIcon>
 				</Link>
 				<div className="text-2xl font-semibold flex-grow">
-					<Link href="/">
-						Nextfire Blog
-					</Link>
+					<Link href="/">Nextfire Blog</Link>
 				</div>
 
 				{/* user is signed in and has username */}
 				{username && (
 					<>
-						<Button color="inherit" className="mr-4">
+						<Button
+							color="inherit"
+							className="mr-4"
+							onClick={async () => signOut(auth)}
+						>
 							Sign Out
 						</Button>
 						<Link href="/admin">

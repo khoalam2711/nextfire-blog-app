@@ -41,7 +41,7 @@ const PostItem = ({ post, admin }: PostItemProps) => {
 				</strong>
 			</Link>
 			<Link href={`/${post.username}/${post.slug}`}>
-				<h2 className='cursor-pointer'>{post.title}</h2>
+				<h2 className="cursor-pointer">{post.title}</h2>
 			</Link>
 
 			<footer>
@@ -53,7 +53,7 @@ const PostItem = ({ post, admin }: PostItemProps) => {
 					<div>
 						{wordCount} words, {minutesToRead} min read
 					</div>
-					<div>💗 1 Hearts</div>
+					<div>💗 {post.heartCount} Hearts</div>
 				</Stack>
 			</footer>
 		</Paper>
