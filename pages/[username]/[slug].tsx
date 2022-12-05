@@ -88,7 +88,7 @@ const PostPage = (props: PostPageProps) => {
 		<>
 			<Metatags title={post.title} />
 			<main className="px-12 py-6 mt-3">
-				<PostContent post={post} />;
+				<PostContent post={post} />
 			</main>
 		</>
 	);

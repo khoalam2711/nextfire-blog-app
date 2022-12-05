@@ -20,7 +20,6 @@ import styles from '../styles/Home.module.css';
 import { postToJSON } from '../utils/helpers';
 import { Post } from '../utils/typings';
 import { CircularProgress } from '@mui/material';
-import { last } from 'lodash';
 
 const LIMIT = 1;
 

@@ -47,8 +47,8 @@ const UsernameForm = () => {
 		if (value.length < 3) {
 			setError('Username must be at least 3 characters');
 			setFormValue(value);
-			setIsValid(false);
 			setIsLoading(false);
+			setIsValid(false);
 		}
 
 		if (regex.test(value)) {
