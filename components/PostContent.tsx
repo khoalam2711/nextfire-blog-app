@@ -9,11 +9,14 @@ import Button from '@mui/material/Button';
 
 import { AiOutlineHeart } from 'react-icons/ai';
 import { Post } from '../utils/typings';
+import useCurrentUser from '../hooks/useCurrentUser';
 interface PostContentProps {
 	post: Post;
 }
 
 const PostContent = ({ post }: PostContentProps) => {
+	const { user } = useCurrentUser();
+
 	return (
 		<>
 			<Grid container spacing={2}>
@@ -39,12 +42,7 @@ const PostContent = ({ post }: PostContentProps) => {
 				<Grid sm={2}>
 					<Paper className="px-4 pt-8 pb-4">
 						<aside>
-							<Grid
-								container
-								direction="column"
-								justifyContent="center"
-								alignItems="center"
-							>
+							<Grid container direction="column" justifyContent="center" alignItems="center">
 								<Grid>
 									<IconButton>
 										<AiOutlineHeart />
@@ -52,16 +50,18 @@ const PostContent = ({ post }: PostContentProps) => {
 									{post.heartCount}
 								</Grid>
 								<Grid>
-									<Button variant="contained">
-										Edit post
-									</Button>
+									{user && user.uid === post.uid && (
+										<Link href={`/admin/${post.slug}`}>
+											<Button variant="contained">Edit post</Button>
+										</Link>
+									)}
 								</Grid>
 							</Grid>
 						</aside>
 					</Paper>
 				</Grid>
 			</Grid>
-			</>
+		</>
 	);
 };
 
