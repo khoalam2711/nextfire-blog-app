@@ -3,10 +3,15 @@ import { useRouter } from 'next/router';
 import React, { FC, useState } from 'react';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import Link from 'next/link';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Unstable_Grid2';
+
+import { MdOutlineEditNote, MdPreview, MdOpenInNew, MdDelete } from 'react-icons/md';
+
+import ImageUploader from '../../components/ImageUploader';
 import AuthCheck from '../../components/AuthCheck';
 import { firestore } from '../../firebase';
 import useCurrentUser from '../../hooks/useCurrentUser';
@@ -16,7 +21,6 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown';
 import useCustomToast from '../../hooks/useCustomToast';
-import Link from 'next/link';
 
 const EditPostPage = () => {
 	return (
@@ -63,7 +67,7 @@ const PostManager: FC = () => {
 								<h1>{post.title}</h1>
 								<p>ID: {post.slug}</p>
 							</section>
-							<Paper className="p-8 pb-3 pl-4">
+							<Paper className="p-4">
 								<PostForm postDoc={postDoc} defaultValues={post} isPreviewMode={isPreviewMode} />
 							</Paper>
 						</>
@@ -77,15 +81,30 @@ const PostManager: FC = () => {
 							size="large"
 							fullWidth
 							onClick={() => setPreviewMode(!isPreviewMode)}
+							startIcon={isPreviewMode ? <MdOutlineEditNote /> : <MdPreview />}
 						>
 							{isPreviewMode ? 'Edit' : 'Preview'}
 						</Button>
 						<Link href={`/${username}/${post.slug}`}>
-							<Button variant="contained" color="secondary" size="large" fullWidth className="mt-3">
-								Live View
+							<Button
+								variant="contained"
+								color="secondary"
+								size="large"
+								fullWidth
+								className="mt-3"
+								startIcon={<MdOpenInNew />}
+							>
+								Go to post
 							</Button>
 						</Link>
-						<Button variant="contained" color="error" size="large" fullWidth className="mt-3">
+						<Button
+							variant="contained"
+							color="error"
+							size="large"
+							fullWidth
+							className="mt-3"
+							startIcon={<MdDelete />}
+						>
 							Delete
 						</Button>
 					</aside>
@@ -135,12 +154,14 @@ const PostForm: FC<PostFormProps> = ({ defaultValues, postDoc, isPreviewMode }) 
 				<ReactMarkdown>{watch('content')}</ReactMarkdown>
 			) : (
 				<>
+					<ImageUploader />
 					<TextField
 						label="Post content"
 						rows={15}
 						placeholder="Use markdown syntax to format your post!"
 						multiline
 						fullWidth
+						className="mt-4"
 						{...register('content', {
 							minLength: { value: 3, message: 'Post content is too short' },
 							maxLength: { value: 20000, message: 'Post content is too long' },
