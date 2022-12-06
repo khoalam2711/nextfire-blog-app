@@ -107,7 +107,13 @@ interface PostFormInputs {
 
 const PostForm: FC<PostFormProps> = ({ defaultValues, postDoc, isPreviewMode }) => {
 	const { toast } = useCustomToast();
-	const { watch, register, handleSubmit, reset } = useForm<PostFormInputs>({
+	const {
+		watch,
+		register,
+		handleSubmit,
+		reset,
+		formState: { isDirty, isValid, errors },
+	} = useForm<PostFormInputs>({
 		defaultValues: defaultValues,
 		mode: 'onChange',
 	});
@@ -135,8 +141,13 @@ const PostForm: FC<PostFormProps> = ({ defaultValues, postDoc, isPreviewMode }) 
 						placeholder="Use markdown syntax to format your post!"
 						multiline
 						fullWidth
-						{...register('content')}
+						{...register('content', {
+							minLength: { value: 3, message: 'Post content is too short' },
+							maxLength: { value: 20000, message: 'Post content is too long' },
+							required: { value: true, message: 'Post content is required' },
+						})}
 					/>
+					{errors.content && <p className="text-red-600">{errors?.content?.message}</p>}
 					<FormControlLabel
 						control={<Checkbox defaultChecked />}
 						label="Published"
@@ -144,7 +155,13 @@ const PostForm: FC<PostFormProps> = ({ defaultValues, postDoc, isPreviewMode }) 
 						className="mt-1"
 					/>
 					<div className="mt-2">
-						<Button type="submit" variant="contained" color="success" fullWidth>
+						<Button
+							type="submit"
+							variant="contained"
+							color="success"
+							fullWidth
+							disabled={!isValid || !isDirty}
+						>
 							Save changes
 						</Button>
 					</div>
