@@ -13,7 +13,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
 				{user?.photoURL && <Image src={user.photoURL} layout="fill" />}
 			</Avatar>
 			<Typography variant="subtitle1" className="mt-3">
-				{user?.username}
+				@{user?.username}
 			</Typography>
 			<Typography variant="h4" component="h1" fontWeight={500} className="my-6">
 				{user?.displayName}

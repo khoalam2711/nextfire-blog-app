@@ -20,7 +20,7 @@ const PostContent = ({ post }: PostContentProps) => {
 	return (
 		<>
 			<Grid container spacing={2}>
-				<Grid sm={10}>
+				<Grid sm={9} lg={10}>
 					<Paper className="px-4 pt-8 pb-4">
 						<article>
 							<h1>{post.title}</h1>
@@ -39,7 +39,7 @@ const PostContent = ({ post }: PostContentProps) => {
 						</article>
 					</Paper>
 				</Grid>
-				<Grid sm={2}>
+				<Grid sm={3} lg={2}>
 					<Paper className="px-4 pt-8 pb-4">
 						<aside>
 							<Grid container direction="column" justifyContent="center" alignItems="center">
