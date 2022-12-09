@@ -1,20 +1,21 @@
-import {
-	collection,
-	collectionGroup,
-	doc,
-	getDoc,
-	getDocs,
-} from 'firebase/firestore';
+import { collection, collectionGroup, doc, getDoc, getDocs } from 'firebase/firestore';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
+import Link from 'next/link';
+
+import Grid from '@mui/material/Unstable_Grid2';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+
 import Metatags from '../../components/Metatags';
 import PostContent from '../../components/PostContent';
-
 import { firestore } from '../../firebase';
 import { getUserWithUsername, postToJSON } from '../../utils/helpers';
 import { Post } from '../../utils/typings';
+import useCurrentUser from '../../hooks/useCurrentUser';
+import HeartButton from '../../components/HeartButton';
 
 interface IStaticPropsParams extends ParsedUrlQuery {
 	username: string;
@@ -35,17 +36,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	let path;
 
 	const postsRef = collection(authorDoc.ref, 'posts');
-	const postRef = doc(postsRef, slug);
-	const postDoc = await getDoc(postRef);
-	if (!postDoc.exists()) {
+	const postDoc = doc(postsRef, slug);
+	const postSnap = await getDoc(postDoc);
+	if (!postSnap.exists()) {
 		return {
 			notFound: true,
 		};
 	}
 
-	post = postToJSON(postDoc.data());
-	path = postRef.path;
-	
+	post = postToJSON(postSnap.data());
+	path = postDoc.path;
+
 	return {
 		props: { post, path },
 		revalidate: 5000,
@@ -74,11 +75,11 @@ interface PostPageProps {
 }
 
 const PostPage = (props: PostPageProps) => {
-	const { path } = props;
-	const postRef = doc(firestore, path);
-	const [realtimePost] = useDocumentData(postRef);
+	const { user } = useCurrentUser();
 
-	// const post: PostPage = realtimePost ? {...realtimePost, createdAt: realtimePost.createdAt.toDate()} || {...props.post, createdAt: new Date(props.post.createdAt)}:
+	const { path } = props;
+	const postDoc = doc(firestore, path);
+	const [realtimePost, isLoadingPost] = useDocumentData(postDoc);
 
 	const post: any = realtimePost
 		? { ...realtimePost, createdAt: realtimePost.createdAt.toDate() }
@@ -88,7 +89,36 @@ const PostPage = (props: PostPageProps) => {
 		<>
 			<Metatags title={post.title} />
 			<main className="px-12 py-6 mt-3">
-				<PostContent post={post} />
+				<Grid container spacing={2}>
+					<Grid sm={9} lg={10}>
+						<Paper className="px-4 pt-8 pb-4">
+							<PostContent post={post} />
+						</Paper>
+					</Grid>
+					<Grid sm={3} lg={2}>
+						<Paper className="px-4 pt-8 pb-4">
+							<aside>
+								<Grid container direction="column" justifyContent="center" alignItems="center">
+									<Grid>
+										{!isLoadingPost && (
+											<>
+												<HeartButton postDoc={postDoc}/>
+												{post.heartCount}
+											</>
+										)}
+									</Grid>
+									<Grid>
+										{user && user.uid === post.uid && (
+											<Link href={`/admin/${post.slug}`}>
+												<Button variant="contained">Edit post</Button>
+											</Link>
+										)}
+									</Grid>
+								</Grid>
+							</aside>
+						</Paper>
+					</Grid>
+				</Grid>
 			</main>
 		</>
 	);
