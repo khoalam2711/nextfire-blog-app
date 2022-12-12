@@ -1,4 +1,11 @@
-import { collection, doc, DocumentReference, serverTimestamp, updateDoc } from 'firebase/firestore';
+import {
+	collection,
+	deleteDoc,
+	doc,
+	DocumentReference,
+	serverTimestamp,
+	updateDoc,
+} from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import React, { FC, useState } from 'react';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
@@ -33,6 +40,7 @@ const EditPostPage = () => {
 const PostManager: FC = () => {
 	const router = useRouter();
 	const { user, username } = useCurrentUser();
+	const { toast } = useCustomToast();
 
 	const [isPreviewMode, setPreviewMode] = useState(false);
 
@@ -57,6 +65,17 @@ const PostManager: FC = () => {
 		uid: data.uid,
 	};
 
+	const handleDeletePost = async () => {
+		try {
+			await deleteDoc(postDoc);
+			router.push('/admin');
+			toast('info', 'Post has been deleted!');
+		} catch (e) {
+			toast('error', 'Something went wrong!');
+			console.log(e);
+		}
+	};
+
 	return (
 		<main className="px-12 py-6 mt-3">
 			<Grid container spacing={2}>
@@ -64,7 +83,7 @@ const PostManager: FC = () => {
 					{post && (
 						<>
 							<section>
-								<h1>{post.title}</h1>
+								<h1 className='text-4xl'>{post.title}</h1>
 								<p>ID: {post.slug}</p>
 							</section>
 							<Paper className="p-4">
@@ -104,6 +123,7 @@ const PostManager: FC = () => {
 							fullWidth
 							className="mt-3"
 							startIcon={<MdDelete />}
+							onClick={() => handleDeletePost()}
 						>
 							Delete
 						</Button>
