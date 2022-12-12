@@ -1,9 +1,9 @@
-import { signInWithPopup } from 'firebase/auth';
+import { signInAnonymously, signInWithPopup } from 'firebase/auth';
 import React, { ReactElement } from 'react';
 import { auth, googleAuthProvider } from '../firebase';
 
 import Button from '@mui/material/Button';
-import { FcGoogle } from 'react-icons/fc';
+import { FcGoogle, FcDecision } from 'react-icons/fc';
 import useCurrentUser from '../hooks/useCurrentUser';
 import UsernameForm from '../components/UsernameForm';
 import { useRouter } from 'next/router';
@@ -39,16 +39,30 @@ function SignInButton(): ReactElement {
 
 	return (
 		<>
-			<Button
-				variant="contained"
-				color="primary"
-				size="large"
-				startIcon={<FcGoogle />}
-				className="btn-light"
-				onClick={signInWithGoogle}
-			>
-				Sign In With Google
-			</Button>
+			<div>
+				<Button
+					variant="contained"
+					color="primary"
+					size="large"
+					startIcon={<FcGoogle />}
+					className="btn-light"
+					onClick={signInWithGoogle}
+				>
+					Sign In With Google
+				</Button>
+			</div>
+			<div>
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={() => signInAnonymously(auth)}
+					size="large"
+					className="mt-3"
+					startIcon={<FcDecision />}
+				>
+					Sign In Anonymously
+				</Button>
+			</div>
 		</>
 	);
 }
