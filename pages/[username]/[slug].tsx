@@ -8,6 +8,8 @@ import Link from 'next/link';
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { AiOutlineHeart } from 'react-icons/ai';
+import IconButton from '@mui/material/IconButton';
 
 import Metatags from '../../components/Metatags';
 import PostContent from '../../components/PostContent';
@@ -102,8 +104,21 @@ const PostPage = (props: PostPageProps) => {
 									<Grid>
 										{!isLoadingPost && (
 											<>
-												<HeartButton postDoc={postDoc}/>
-												{post.heartCount}
+												{user ? (
+													<>
+														<HeartButton postDoc={postDoc} />
+														{post.heartCount}
+													</>
+												) : (
+													<>
+														<Link href="/signin">
+															<IconButton>
+																<AiOutlineHeart />
+															</IconButton>
+														</Link>
+														{post.heartCount}
+													</>
+												)}
 											</>
 										)}
 									</Grid>

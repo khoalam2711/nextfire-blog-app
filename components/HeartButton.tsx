@@ -7,7 +7,6 @@ import {
 	DocumentReference,
 	increment,
 	writeBatch,
-	WriteBatch,
 } from 'firebase/firestore';
 import useCurrentUser from '../hooks/useCurrentUser';
 import { useDocument } from 'react-firebase-hooks/firestore';
