@@ -16,7 +16,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
 				@{user?.username}
 			</Typography>
 			<Typography variant="h4" component="h1" fontWeight={500} className="my-6">
-				{user?.displayName}
+				{user?.displayName ? user?.displayName : "Anonymous User"}
 			</Typography>
 		</section>
 	);

@@ -21,7 +21,7 @@ import { postToJSON } from '../utils/helpers';
 import { Post } from '../utils/typings';
 import { CircularProgress } from '@mui/material';
 
-const LIMIT = 1;
+const LIMIT = 3;
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const postsQuery = query(

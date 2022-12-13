@@ -11,7 +11,7 @@ interface PostContentProps {
 const PostContent = ({ post }: PostContentProps) => {
 	return (
 		<article>
-			<h1>{post.title}</h1>
+			<h1 className="text-4xl mt-0">{post.title}</h1>
 			<p>
 				Written by{' '}
 				<Link href={`/${post.username}`}>

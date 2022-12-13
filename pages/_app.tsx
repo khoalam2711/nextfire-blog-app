@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import { CurrentUserProvider } from '../hooks/useCurrentUser';
 import '../styles/globals.css';
 import { CustomToastProvider } from '../hooks/useCustomToast';
+import Footer from '../components/Footer';
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
@@ -11,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<CustomToastProvider>
 					<Navbar />
 					<Component {...pageProps} />
+					<Footer/>
 				</CustomToastProvider>
 			</CurrentUserProvider>
 		</>

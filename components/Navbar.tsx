@@ -32,11 +32,7 @@ const Navbar = () => {
 				{/* user is signed in and has username */}
 				{username && (
 					<>
-						<Button
-							color="inherit"
-							className="mr-4"
-							onClick={async () => signOut(auth)}
-						>
+						<Button color="inherit" className="mr-4" onClick={async () => signOut(auth)}>
 							Sign Out
 						</Button>
 						<Link href="/admin">
@@ -46,10 +42,7 @@ const Navbar = () => {
 						</Link>
 						<Link href={`/${username}`}>
 							<Avatar className="cursor-pointer">
-								<Image
-									src={user?.photoURL || FALLBACK_PHOTO_URL}
-									layout="fill"
-								/>
+								{user?.photoURL && <Image src={user.photoURL} layout="fill" />}
 							</Avatar>
 						</Link>
 					</>
