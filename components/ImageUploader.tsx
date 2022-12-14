@@ -75,7 +75,8 @@ const ImageUploader = () => {
 						<code>{`![alt](${imageURL})`}</code>
 					</div>
 					<small>
-						Pro tip: You can click "Preview" to see the how the image would look in your post!
+						Pro tip: You can click &quot;Preview&quot; to see the how the image would look in your
+						post!
 					</small>
 				</div>
 			)}

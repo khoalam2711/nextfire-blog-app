@@ -42,7 +42,6 @@ const HeartButton: FC<HeartButtonProps> = ({ postDoc }) => {
 
 		await batch.commit();
 	};
-	console.log('userHeartedSnap?.exists()', userHeartedSnap?.exists());
 	if (loading) return null;
 	return userHeartedSnap?.exists() ? (
 		<IconButton onClick={handleUnHeart}>

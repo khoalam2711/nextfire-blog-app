@@ -112,6 +112,7 @@ const Introduction: FC = () => {
 			<p className="mb-0">You can:</p>
 			<ul className="mt-2 list-none pl-6">
 				<li>💡 Sign up for an account. </li>
+				<li>🧳 Visit other people's profile. </li>
 				<li>📝 Write posts.</li>
 				<li>🔧 Edit your posts.</li>
 				<li>💗 Heart content created by other users.</li>
