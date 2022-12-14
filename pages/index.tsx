@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import {
@@ -12,6 +12,7 @@ import {
 	where,
 } from 'firebase/firestore';
 
+import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
 import PostFeed from '../components/PostFeed';
@@ -31,9 +32,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		limit(LIMIT)
 	);
 
-	const posts = (await getDocs(postsQuery)).docs.map((doc) =>
-		postToJSON(doc.data())
-	);
+	const posts = (await getDocs(postsQuery)).docs.map((doc) => postToJSON(doc.data()));
 
 	return {
 		props: {
@@ -88,6 +87,8 @@ export default function Home(props: HomePageProps) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="p-12 px-24">
+				<Introduction />
+
 				<PostFeed posts={posts} />
 				<div className="mt-6">
 					{isLoading && <CircularProgress />}
@@ -102,3 +103,21 @@ export default function Home(props: HomePageProps) {
 		</div>
 	);
 }
+
+const Introduction: FC = () => {
+	return (
+		<Paper className="p-3 pl-5" elevation={4}>
+			<h1 className="my-2 text-2xl">Welcome!</h1>
+			<p>This app is built by Lâm Ngọc Anh Khoa with Next.js and Firebase.</p>
+			<p className="mb-0">You can:</p>
+			<ul className="mt-2 list-none pl-6">
+				<li>💡 Sign up for an account. </li>
+				<li>📝 Write posts.</li>
+				<li>🔧 Edit your posts.</li>
+				<li>💗 Heart content created by other users.</li>
+			</ul>
+
+			<p>All public content is server-rendered and search-engine optimized.</p>
+		</Paper>
+	);
+};

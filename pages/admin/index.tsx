@@ -1,7 +1,6 @@
 import {
 	collection,
 	doc,
-	getDocs,
 	orderBy,
 	query,
 	serverTimestamp,
@@ -20,7 +19,6 @@ import AuthCheck from '../../components/AuthCheck';
 import PostFeed from '../../components/PostFeed';
 import { firestore } from '../../firebase';
 import useCurrentUser from '../../hooks/useCurrentUser';
-import { Post } from '../../utils/typings';
 import useCustomToast from '../../hooks/useCustomToast';
 
 const AdminPostsPage: FC = () => {

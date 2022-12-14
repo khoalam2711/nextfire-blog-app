@@ -28,6 +28,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown';
 import useCustomToast from '../../hooks/useCustomToast';
+import style from '../../components/style.module.css';
 
 const EditPostPage = () => {
 	return (
@@ -83,7 +84,7 @@ const PostManager: FC = () => {
 					{post && (
 						<>
 							<section>
-								<h1 className='text-4xl'>{post.title}</h1>
+								<h1 className="text-4xl">{post.title}</h1>
 								<p>ID: {post.slug}</p>
 							</section>
 							<Paper className="p-4">
@@ -171,7 +172,9 @@ const PostForm: FC<PostFormProps> = ({ defaultValues, postDoc, isPreviewMode }) 
 	return (
 		<form onSubmit={handleSubmit(updatePost)}>
 			{isPreviewMode ? (
-				<ReactMarkdown>{watch('content')}</ReactMarkdown>
+				<section className={style.markdown}>
+					<ReactMarkdown>{watch('content')}</ReactMarkdown>
+				</section>
 			) : (
 				<>
 					<ImageUploader />
