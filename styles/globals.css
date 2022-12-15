@@ -32,6 +32,7 @@ a {
 
 @tailwind components;
 @tailwind utilities;
+@mui base
 
 @layer components {
 	.btn-light {
