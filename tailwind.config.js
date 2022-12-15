@@ -5,8 +5,11 @@ module.exports = {
 		'./components/**/*.{js,ts,jsx,tsx}',
 		'./hooks/**/*.{js,ts,jsx,tsx}',
 		'./utils/**/*.{js,ts,jsx,tsx}',
-		'./styles/**/*.{js,ts,jsx,tsx}',
 	],
+	important: '#__next',
+	corePlugins: {
+		preflight: false,
+	},
 	theme: {
 		extend: {},
 	},
