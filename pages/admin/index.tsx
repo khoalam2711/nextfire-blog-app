@@ -48,7 +48,7 @@ const PostList: FC = () => {
 	return (
 		<>
 			<h1>Manage your post</h1>
-			<PostFeed posts={posts} />
+			<PostFeed posts={posts} admin/>
 		</>
 	);
 };

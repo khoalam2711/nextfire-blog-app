@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/system/Stack';
 
 import { Post } from '../utils/typings';
+import { Button, Typography } from '@mui/material';
 interface PostFeedProps {
 	posts: Post[];
 	admin?: boolean;
@@ -34,10 +35,7 @@ const PostItem = ({ post, admin }: PostItemProps) => {
 		<Paper elevation={2} className="p-6 mt-5">
 			<Link href={`/${post.username}`}>
 				<strong>
-					By{' '}
-					<strong className="hover:underline cursor-pointer">
-						@{post.username}
-					</strong>
+					By <strong className="hover:underline cursor-pointer">@{post.username}</strong>
 				</strong>
 			</Link>
 			<Link href={`/${post.username}/${post.slug}`}>
@@ -45,17 +43,29 @@ const PostItem = ({ post, admin }: PostItemProps) => {
 			</Link>
 
 			<footer>
-				<Stack
-					direction="row"
-					justifyContent="space-between"
-					alignItems="center"
-				>
+				<Stack direction="row" justifyContent="space-between" alignItems="center">
 					<div>
 						{wordCount} words, {minutesToRead} min read
 					</div>
 					<div>💗 {post.heartCount} Hearts</div>
 				</Stack>
 			</footer>
+			{admin && (
+				<div className="mt-2">
+					<div className="mb-3">
+						{post.published ? (
+							<Typography color="green">Published</Typography>
+						) : (
+							<Typography color="red">Unpublished</Typography>
+						)}
+					</div>
+					<Link href={`/admin/${post.slug}`}>
+						<Button variant="contained" color="secondary">
+							Edit
+						</Button>
+					</Link>
+				</div>
+			)}
 		</Paper>
 	);
 };
