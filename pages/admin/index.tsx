@@ -23,16 +23,14 @@ import useCustomToast from '../../hooks/useCustomToast';
 
 const AdminPostsPage: FC = () => {
 	return (
-		<main>
 			<>
 				<AuthCheck>
-					<main className="py-6 px-24">
+					<main className="py-12 px-6 sm:px-12 lg:px-24">
 						<PostList />
 						<CreateNewPost />
 					</main>
 				</AuthCheck>
 			</>
-		</main>
 	);
 };
 

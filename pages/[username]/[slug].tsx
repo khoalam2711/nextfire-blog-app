@@ -90,48 +90,52 @@ const PostPage = (props: PostPageProps) => {
 	return (
 		<>
 			<Metatags title={post.title} />
-			<main className="px-12 py-6 mt-3">
-				<Grid container spacing={2}>
-					<Grid sm={9} lg={10}>
+			<main className="sm:px-6 lg:px-12 py-6 mt-3">
+				<Grid container spacing={2} justifyContent="center">
+					<Grid sm={9} md={10}>
 						<Paper className="px-4 pt-8 pb-4">
 							<PostContent post={post} />
 						</Paper>
 					</Grid>
-					<Grid sm={3} lg={2}>
-						<Paper className="px-4 pt-8 pb-4">
-							<aside>
-								<Grid container direction="column" justifyContent="center" alignItems="center">
-									<Grid>
-										{!isLoadingPost && (
-											<>
-												{user ? (
-													<>
-														<HeartButton postDoc={postDoc} />
-														{post.heartCount}
-													</>
-												) : (
-													<>
-														<Link href="/signin">
-															<IconButton>
-																<AiOutlineHeart />
-															</IconButton>
-														</Link>
-														{post.heartCount}
-													</>
-												)}
-											</>
-										)}
+					<Grid sm={12} md={2} justifyContent="center">
+						<aside>
+							<Grid container justifyContent="center">
+								<Paper className="px-4 pt-8 pb-4 w-40">
+									<Grid container direction="column" justifyContent="center" alignItems="center">
+										<Grid>
+											{!isLoadingPost && (
+												<>
+													{user ? (
+														<>
+															<HeartButton postDoc={postDoc} />
+															{post.heartCount}
+														</>
+													) : (
+														<>
+															<Link href="/signin">
+																<IconButton>
+																	<AiOutlineHeart />
+																</IconButton>
+															</Link>
+															{post.heartCount}
+														</>
+													)}
+												</>
+											)}
+										</Grid>
+										<Grid>
+											{user && user.uid === post.uid && (
+												<Link href={`/admin/${post.slug}`}>
+													<Button variant="contained" color="secondary">
+														Edit post
+													</Button>
+												</Link>
+											)}
+										</Grid>
 									</Grid>
-									<Grid>
-										{user && user.uid === post.uid && (
-											<Link href={`/admin/${post.slug}`}>
-												<Button variant="contained">Edit post</Button>
-											</Link>
-										)}
-									</Grid>
-								</Grid>
-							</aside>
-						</Paper>
+								</Paper>
+							</Grid>
+						</aside>
 					</Grid>
 				</Grid>
 			</main>

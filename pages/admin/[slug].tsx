@@ -78,9 +78,9 @@ const PostManager: FC = () => {
 	};
 
 	return (
-		<main className="px-12 py-6 mt-3">
-			<Grid container spacing={2}>
-				<Grid sm={9}>
+		<main className="px-6 py-6 mt-3">
+			<Grid container spacing={2} justifyContent="center">
+				<Grid sm={12} md={9}>
 					{post && (
 						<>
 							<section>
@@ -93,7 +93,7 @@ const PostManager: FC = () => {
 						</>
 					)}
 				</Grid>
-				<Grid sm={3}>
+				<Grid sm={12} md={3}>
 					<aside>
 						<Button
 							variant="contained"
